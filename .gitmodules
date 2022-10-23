@@ -1,3 +1,9 @@
 [submodule "segmenters/Cylinder3D"]
 	path = segmenters/Cylinder3D
 	url = https://github.com/xinge008/Cylinder3D.git
+[submodule "segmenters/2DPASS"]
+	path = segmenters/2DPASS
+	url = https://github.com/yanx27/2DPASS.git
+[submodule "segmenters/COARSE3D"]
+	path = segmenters/COARSE3D
+	url = https://github.com/cv-rits/COARSE3D.git
