@@ -26,6 +26,7 @@ docker run \
     --rm \
     --gpus=all \
     --net=host \
+    --privileged \
     -e DISPLAY \
     -e QT_X11_NO_MITSHM=1 \
     -e XAUTHORITY=/tmp/.docker.xauth \
