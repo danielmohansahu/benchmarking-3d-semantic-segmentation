@@ -14,9 +14,12 @@
 #  see https://hub.docker.com/r/nvidia/cuda/tags
 ARG CUDA_VERSION="11.3.1"
 ARG UBUNTU_VERSION="20.04"
+ARG TORCH_VERSION="1.12.1"
 
 # Start from a base Nvidia/CUDA capable Ubuntu image
 FROM nvidia/cuda:${CUDA_VERSION}-cudnn8-devel-ubuntu${UBUNTU_VERSION} AS base
+ARG CUDA_VERSION
+ARG TORCH_VERSION
 
 # use bash for everything
 SHELL ["/bin/bash", "-c"]
@@ -33,6 +36,8 @@ RUN apt-get update -qq && \
 
 # Cylinder3D specific dependencies
 FROM base AS Cylinder3D
+ARG CUDA_VERSION
+ARG TORCH_VERSION
 
 # install the things needed for Cylinder3D
 RUN apt-get update -qq && \
@@ -45,14 +50,14 @@ RUN apt-get update -qq && \
 # install pip dependencies
 COPY config/Cylinder3D/requirements.txt /tmp/requirements.txt
 RUN python3 -m pip install --upgrade pip \
-    && python3 -m pip install torch==1.12.1 --extra-index-url https://download.pytorch.org/whl/cu113 \
-    && python3 -m pip install torch-scatter -f https://data.pyg.org/whl/torch-1.12.1+cu113.html \
+    && python3 -m pip install torch==${TORCH_VERSION} --extra-index-url https://download.pytorch.org/whl/cu113 \
+    && python3 -m pip install torch-scatter -f https://data.pyg.org/whl/torch-${TORCH_VERSION}+cu113.html \
     && python3 -m pip install -r /tmp/requirements.txt
 
 # install spconv (old, non-pypy version required)
-RUN git clone https://github.com/traveller59/spconv.git --recursive -b v1.2.1 /tmp/spconv \
-    && cd /tmp/spconv \
-    && python3 setup.py install
+RUN git clone https://github.com/traveller59/spconv.git --recursive -b v1.2.1 /tmp/spconv 
+#     && cd /tmp/spconv \
+#     && python3 setup.py install
 
 # drop into a byobu shell
 WORKDIR /workspace
