@@ -1,0 +1,5 @@
+numpy
+tqdm
+numba
+pyyaml
+strictyaml
