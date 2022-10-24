@@ -27,7 +27,7 @@ dataset_params:
   ignore_label: 0
   return_test: False
   fixed_volume_space: True
-  label_mapping: "/home/dsahu/UMD/benchmarking-3d-semantic-segmentation/segmenters/Cylinder3D/config/label_mapping/semantic-kitti.yaml"
+  label_mapping: "/workspace/segmenters/Cylinder3D/config/label_mapping/semantic-kitti.yaml"
   max_volume_space:
     - 50
     - 3.1415926
@@ -41,7 +41,7 @@ dataset_params:
 ###################
 ## Data_loader options
 train_data_loader:
-  data_path: "/home/dsahu/UMD/benchmarking-3d-semantic-segmentation/data/dataset/SemanticKitti/dataset/sequences/"
+  data_path: "/workspace/data/SemanticKitti/dataset/sequences/"
   imageset: "train"
   return_ref: True
   batch_size: 2
@@ -49,7 +49,7 @@ train_data_loader:
   num_workers: 4
 
 val_data_loader:
-  data_path: "/home/dsahu/UMD/benchmarking-3d-semantic-segmentation/data/dataset/SemanticKitti/dataset/sequences/"
+  data_path: "/workspace/data/SemanticKitti/dataset/sequences/"
   imageset: "val"
   return_ref: True
   batch_size: 1
