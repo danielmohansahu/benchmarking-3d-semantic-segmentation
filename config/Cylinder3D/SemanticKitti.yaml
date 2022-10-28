@@ -9,14 +9,14 @@ model_params:
   output_shape:
     - 480
     - 360
-    - 4
+    - 16
 
   fea_dim: 9
   out_fea_dim: 256
   num_class: 20
   num_input_features: 16
   use_norm: True
-  init_size: 4
+  init_size: 16
 
 
 ###################
@@ -44,9 +44,9 @@ train_data_loader:
   data_path: "/workspace/data/SemanticKitti/dataset/sequences/"
   imageset: "train"
   return_ref: True
-  batch_size: 1
+  batch_size: 2
   shuffle: True
-  num_workers: 0
+  num_workers: 4
 
 val_data_loader:
   data_path: "/workspace/data/SemanticKitti/dataset/sequences/"
@@ -54,14 +54,14 @@ val_data_loader:
   return_ref: True
   batch_size: 1
   shuffle: False
-  num_workers: 0
+  num_workers: 4
 
 
 ###################
 ## Train params
 train_params:
-  model_load_path: "./model_load_dir/model_load.pt"
-  model_save_path: "./model_save_dir/model_save.pt"
+  model_load_path: "/workspace/models/Cylinder3D/model_load.pt"
+  model_save_path: "/workspace/models/Cylinder3D/model_save.pt"
   checkpoint_every_n_steps: 4599
   max_num_epochs: 40
   eval_every_n_steps: 4599
