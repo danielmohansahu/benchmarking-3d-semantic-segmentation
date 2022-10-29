@@ -69,11 +69,12 @@ ARG CUDA_VERSION
 ARG TORCH_VERSION
 
 # install the things needed for Cylinder3D
-RUN apt-get update -qq && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -q -y \
+RUN apt-get update -qq \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -q -y \
       python3-dev \
       python3-pip \
       libgl-dev \
+      libglib-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # install pip dependencies
