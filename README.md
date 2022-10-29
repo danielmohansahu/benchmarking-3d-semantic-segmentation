@@ -37,4 +37,24 @@ From within the virtual environment install all dependencies.
 # Cylinder3D
 pip install torch
 pip install torch-scatter spconv
+```
 
+
+## Training
+
+### Cylinder3D
+
+```bash
+./build_and_run.sh Cylinder3D
+
+```
+
+### COARSE3D
+
+```bash
+# enter build environment
+./build_and_run.sh COARSE3D
+
+# prepare data
+python3 segmenters/COARSE3D/tasks/prepare_data/gen_sem_weak_label_rand_grid.py --dataset SemanticKITTI --dataset_root=`pwd`/data/SemanticKitti/dataset/sequences/ --dataset_save=`pwd`/results/COARSE3D/SemanticKitti/sequences/ --data_config_path=`pwd`/segmenters/COARSE3D/pc_processor/dataset/semantic_kitti/semantic-kitti.yaml
+```
