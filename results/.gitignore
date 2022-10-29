@@ -1,0 +1,3 @@
+# ignore all build products
+*.pt
+*.npy
