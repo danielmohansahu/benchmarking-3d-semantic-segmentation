@@ -34,7 +34,7 @@ RUN apt-get update -qq && \
       cmake \
     && rm -rf /var/lib/apt/lists/*
 
-# Cylinder3D specific dependencies
+### Cylinder3D specific dependencies
 FROM base AS Cylinder3D
 ARG CUDA_VERSION
 ARG TORCH_VERSION
@@ -58,6 +58,29 @@ RUN python3 -m pip install --upgrade pip \
 RUN git clone https://github.com/traveller59/spconv.git --recursive -b v1.2.1 /tmp/spconv 
 #     && cd /tmp/spconv \
 #     && python3 setup.py install
+
+# drop into a byobu shell
+WORKDIR /workspace
+CMD byobu
+
+### COARDE3D specific dependencies
+FROM base AS COARSE3D
+ARG CUDA_VERSION
+ARG TORCH_VERSION
+
+# install the things needed for Cylinder3D
+RUN apt-get update -qq && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -q -y \
+      python3-dev \
+      python3-pip \
+      libgl-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# install pip dependencies
+COPY config/COARSE3D/requirements.txt /tmp/requirements.txt
+RUN python3 -m pip install --upgrade pip \
+    && python3 -m pip install torch==${TORCH_VERSION} --extra-index-url https://download.pytorch.org/whl/cu113 \
+    && python3 -m pip install -r /tmp/requirements.txt
 
 # drop into a byobu shell
 WORKDIR /workspace
