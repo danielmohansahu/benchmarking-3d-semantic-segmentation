@@ -45,6 +45,8 @@ RUN apt-get update -qq && \
       python3-dev \
       python3-pip \
       libboost-dev \
+      libgl-dev \
+      libglib2.0-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # install pip dependencies
@@ -56,8 +58,9 @@ RUN python3 -m pip install --upgrade pip \
 
 # install spconv (old, non-pypy version required)
 RUN git clone https://github.com/traveller59/spconv.git --recursive -b v1.2.1 /tmp/spconv 
-#     && cd /tmp/spconv \
-#     && python3 setup.py install
+COPY config/Cylinder3D/spconv.patch /tmp/spconv/spconv.patch
+RUN cd /tmp/spconv \
+      && git apply spconv.patch
 
 # drop into a byobu shell
 WORKDIR /workspace
@@ -68,7 +71,7 @@ FROM base AS COARSE3D
 ARG CUDA_VERSION
 ARG TORCH_VERSION
 
-# install the things needed for Cylinder3D
+# install the things needed for COARSE3D
 RUN apt-get update -qq && \
     DEBIAN_FRONTEND=noninteractive apt-get install -q -y \
       python3-dev \

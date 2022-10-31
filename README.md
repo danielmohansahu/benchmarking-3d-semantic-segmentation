@@ -45,7 +45,21 @@ pip install torch-scatter spconv
 ### Cylinder3D
 
 ```bash
+# enter development environment
 ./build_and_run.sh Cylinder3D
+
+# build spconv (runtime detection of cuda architecture)
+cd /tmp/spconv
+python3 setup.py install
+cd /workspace
+
+# train (e.g.):
+# SemanticKitti
+CUDA_VISIBLE_DEVICES=0 python3 -u segmenters/Cylinder3D/train_cylinder_asym.py -y config/Cylinder3D/SemanticKitti.yaml
+
+# nuScenes
+# preprocess data according to https://mmdetection3d.readthedocs.io/en/stable/datasets/nuscenes_det.html
+CUDA_VISIBLE_DEVICES=0 python3 -u segmenters/Cylinder3D/train_cylinder_asym_nuscenes.py -y config/Cylinder3D/nuScenes.yaml
 
 ```
 

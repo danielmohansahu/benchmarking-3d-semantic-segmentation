@@ -60,8 +60,8 @@ val_data_loader:
 ###################
 ## Train params
 train_params:
-  model_load_path: "/workspace/results/Cylinder3D/nuScenese/model_load.pt"
-  model_save_path: "/workspace/results/Cylinder3D/nuScenese/model_save.pt"
+  model_load_path: "/workspace/results/Cylinder3D/nuScenes/model_load.pt"
+  model_save_path: "/workspace/results/Cylinder3D/nuScenes/model_save.pt"
   checkpoint_every_n_steps: 4599
   max_num_epochs: 40
   eval_every_n_steps: 4599
