@@ -1,0 +1,20 @@
+diff --git a/include/spconv/reordering.cu.h b/include/spconv/reordering.cu.h
+index a0c8b48..bb0f6f4 100644
+--- a/include/spconv/reordering.cu.h
++++ b/include/spconv/reordering.cu.h
+@@ -15,7 +15,7 @@
+ #ifndef REORDERING_CU_H_
+ #define REORDERING_CU_H_
+ #include <THC/THCAtomics.cuh>
+-#include <THC/THCNumerics.cuh>
++// #include <THC/THCNumerics.cuh>
+ #include <cuda_fp16.h>
+ #include <tensorview/kernel_utils.h>
+ 
+@@ -429,4 +429,4 @@ batchScatterAddBlockKernel(T *outFeatures, const T *buffer,
+ 
+ #undef TH_ATOMIC_ADD
+ 
+-#endif
+\ No newline at end of file
++#endif
