@@ -9,6 +9,7 @@ Summary test matrix:
 | [Cylinder3D](https://arxiv.org/pdf/2011.10033.pdf) | | |
 | [COARSE3D](https://arxiv.org/pdf/2210.01784.pdf) | | |
 | [2DPASS](https://arxiv.org/pdf/2207.04397.pdf) | | |
+| [SalsaNext](https://arxiv.org/pdf/2003.03653.pdf) | | | 
 
 
 ## Overview and Summary of Results
@@ -80,11 +81,11 @@ cd /workspace
 
 # train (e.g.):
 # SemanticKitti
-CUDA_VISIBLE_DEVICES=0 python3 -u segmenters/Cylinder3D/train_cylinder_asym.py -y config/Cylinder3D/SemanticKitti.yaml
+CUDA_VISIBLE_DEVICES=0 time python3 -u segmenters/Cylinder3D/train_cylinder_asym.py -y config/Cylinder3D/SemanticKitti.yaml
 
 # nuScenes
 # preprocess data according to https://mmdetection3d.readthedocs.io/en/stable/datasets/nuscenes_det.html
-CUDA_VISIBLE_DEVICES=0 python3 -u segmenters/Cylinder3D/train_cylinder_asym_nuscenes.py -y config/Cylinder3D/nuScenes.yaml
+CUDA_VISIBLE_DEVICES=0 time python3-u segmenters/Cylinder3D/train_cylinder_asym_nuscenes.py -y config/Cylinder3D/nuScenes.yaml
 
 ```
 
@@ -96,9 +97,28 @@ CUDA_VISIBLE_DEVICES=0 python3 -u segmenters/Cylinder3D/train_cylinder_asym_nusc
 
 # prepare data
 cd segmenters/COARSE3D/tasks/prepare_data
-python3 gen_sem_weak_label_rand_grid.py --dataset SemanticKITTI --dataset_root=/workspace/data/SemanticKitti/dataset/sequences/ --dataset_save=/workspace/results/COARSE3D/SemanticKitti/sequences/ --data_config_path=/workspace/segmenters/COARSE3D/pc_processor/dataset/semantic_kitti/semantic-kitti.yaml
+time python3 gen_sem_weak_label_rand_grid.py --dataset SemanticKITTI --dataset_root=/workspace/data/SemanticKitti/dataset/sequences/ --dataset_save=/workspace/results/COARSE3D/SemanticKitti/sequences/ --data_config_path=/workspace/segmenters/COARSE3D/pc_processor/dataset/semantic_kitti/semantic-kitti.yaml
 
 # train
 cd /workspace/segmenters/COARSE3D/tasks/weak_segmentation
-CUDA_VISIBLE_DEVICES="0" python3 -m torch.distributed.launch --nproc_per_node=1 --master_port=26889 --use_env main.py /workspace/config/COARSE3D/SemanticKitti.yaml
+CUDA_VISIBLE_DEVICES="0" time python3 -m torch.distributed.launch --nproc_per_node=1 --master_port=26889 --use_env main.py /workspace/config/COARSE3D/SemanticKitti.yaml
+```
+
+#### 2DPASS
+
+```bash
+# enter build environment
+./build_and_run.sh 2DPASS
+
+# train on semantickitti
+time python3 segmenters/2DPASS/main.py --log_dir segmenters/2DPASS/2DPASS_semkitti --config config/2DPASS/SemanticKitti.yaml --gpu 0
+
+# train on nuScenes
+time python3 segmenters/2DPASS/main.py --log_dir segmenters/2DPASS/2DPASS_nusc --config config/2DPASS/nuScenes.yaml --gpu 0
+
+# evaluation (semantickitti)
+time python3 segmenters/2DPASS/main.py --config config/2DPASS/SemanticKitti.yaml --gpu 0 --test --num_vote 12 --checkpoint results/2DPASS/SemanticKitti/model_save.pt
+
+# evaluation (nuscenes)
+time python3 segmenters/2DPASS/main.py --config config/2DPASS/nuScenes.yaml --gpu 0 --test --num_vote 12 --checkpoint results/2DPASS/nuScenes/model_save.pt
 ```

@@ -1,0 +1,5 @@
+nuscenes-devkit
+pyyaml
+easydict
+pyquaternion
+lightning

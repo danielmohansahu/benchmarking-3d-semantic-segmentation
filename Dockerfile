@@ -34,7 +34,7 @@ RUN apt-get update -qq && \
       cmake \
     && rm -rf /var/lib/apt/lists/*
 
-### Cylinder3D specific dependencies
+###################################### Cylinder3D #######################################
 FROM base AS Cylinder3D
 ARG CUDA_VERSION
 ARG TORCH_VERSION
@@ -66,11 +66,11 @@ RUN cd /tmp/spconv \
 WORKDIR /workspace
 CMD byobu
 
-### COARDE3D specific dependencies
+###################################### COARSE3D ########################################
 FROM base AS COARSE3D
 ARG CUDA_VERSION
 
-# install the things needed for Cylinder3D
+# install the things needed for COARSE3D
 RUN apt-get update -qq \
     && DEBIAN_FRONTEND=noninteractive apt-get install -q -y \
       python3-dev \
@@ -83,6 +83,33 @@ RUN apt-get update -qq \
 COPY config/COARSE3D/requirements.txt /tmp/requirements.txt
 RUN python3 -m pip install --upgrade pip \
     && python3 -m pip install torch==1.8.0+cu111 torchvision==0.9.0+cu111 torchaudio==0.8.0 --extra-index-url https://download.pytorch.org/whl/cu111 \
+    && python3 -m pip install -r /tmp/requirements.txt
+
+# drop into a byobu shell
+WORKDIR /workspace
+CMD byobu
+
+
+###################################### 2DPASS ########################################
+FROM base AS 2DPASS
+ARG CUDA_VERSION
+ARG SEGMENTER="2DPASS"
+
+# install the things needed for COARSE3D
+RUN apt-get update -qq \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -q -y \
+      python3-dev \
+      python3-pip \
+      libgl-dev \
+      libglib2.0-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# install pip dependencies
+COPY config/${SEGMENTER}/requirements.txt /tmp/requirements.txt
+RUN python3 -m pip install --upgrade pip \
+    && python3 -m pip install torch==1.8.0+cu111 torchvision==0.9.0+cu111 torchaudio==0.8.0 --extra-index-url https://download.pytorch.org/whl/cu111 \
+    && python3 -m pip install torch-scatter -f https://data.pyg.org/whl/torch-1.8.0+cu111.html \
+    && python3 -m pip install spconv-cu111 \
     && python3 -m pip install -r /tmp/requirements.txt
 
 # drop into a byobu shell
