@@ -4,12 +4,12 @@ Benchmarking state of the art 3D Semantic Segmentation classifiers against popul
 
 Summary test matrix:
 
-| Segmenter / Dataset | [SemanticKitti](http://www.semantic-kitti.org/dataset.html) | [nuScenes](https://www.nuscenes.org/nuscenes) | [RELLIS3D](https://unmannedlab.github.io/research/RELLIS-3D)
-| --- | --- | --- | ---
-| [Cylinder3D](https://arxiv.org/pdf/2011.10033.pdf) | | |
-| [COARSE3D](https://arxiv.org/pdf/2210.01784.pdf) | | |
-| [2DPASS](https://arxiv.org/pdf/2207.04397.pdf) | | |
-| [SalsaNext](https://arxiv.org/pdf/2003.03653.pdf) | | | 
+| Segmenter / Dataset | [SemanticKitti](http://www.semantic-kitti.org/dataset.html) | [nuScenes](https://www.nuscenes.org/nuscenes) | [RELLIS3D](https://unmannedlab.github.io/research/RELLIS-3D) | [Semantic3D](http://www.semantic3d.net/)
+| --- | --- | --- | --- | ---
+| [Cylinder3D](https://arxiv.org/pdf/2011.10033.pdf) | | | |
+| [COARSE3D](https://arxiv.org/pdf/2210.01784.pdf) | | | |
+| [2DPASS](https://arxiv.org/pdf/2207.04397.pdf) | | | |
+| [SalsaNext](https://arxiv.org/pdf/2003.03653.pdf) | | | | 
 
 ## Overview and Summary of Results
 
@@ -20,7 +20,7 @@ Rough metrics are collected on each of these permutations of dataset / segmenter
 Summary of collected metrics:
 
 Dataset | Segmenter | mean Intersection Over Union (mIOU) | Overall Accuracy (OA) | Runtime Frequency (hz) | Runtime GPU Usage (GB) | Time to Train (h)
---- | --- | --- | --- | --- | ---
+--- | --- | --- | --- | --- | --- | ---
 SemanticKitti | Cylinder3D | ??? | ??? | ??? | ??? | ???
 SemanticKitti | COARSE3D | ??? | ??? | ??? | ??? | ???
 SemanticKitti | 2DPASS | ??? | ??? | ??? | ??? | ???
