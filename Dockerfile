@@ -89,7 +89,6 @@ RUN python3 -m pip install --upgrade pip \
 WORKDIR /workspace
 CMD byobu
 
-
 ###################################### 2DPASS ########################################
 FROM base AS TWODPASS
 ARG CUDA_VERSION
@@ -110,6 +109,31 @@ RUN python3 -m pip install --upgrade pip \
     && python3 -m pip install torch==1.8.0+cu111 torchvision==0.9.0+cu111 torchaudio==0.8.0 --extra-index-url https://download.pytorch.org/whl/cu111 \
     && python3 -m pip install torch-scatter -f https://data.pyg.org/whl/torch-1.8.0+cu111.html \
     && python3 -m pip install spconv-cu111 \
+    && python3 -m pip install -r /tmp/requirements.txt
+
+# drop into a byobu shell
+WORKDIR /workspace
+CMD byobu
+
+###################################### SalsaNext #######################################
+FROM base AS SalsaNext
+ARG CUDA_VERSION
+ARG TORCH_VERSION
+
+# install the things needed for SalsaNext
+RUN apt-get update -qq && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -q -y \
+      python3-dev \
+      python3-pip \
+      libboost-dev \
+      libgl-dev \
+      libglib2.0-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# install pip dependencies
+COPY config/Cylinder3D/requirements.txt /tmp/requirements.txt
+RUN python3 -m pip install --upgrade pip \
+    && python3 -m pip install torch==${TORCH_VERSION} --extra-index-url https://download.pytorch.org/whl/cu113 \
     && python3 -m pip install -r /tmp/requirements.txt
 
 # drop into a byobu shell

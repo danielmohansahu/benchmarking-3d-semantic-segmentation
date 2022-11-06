@@ -1,0 +1,139 @@
+################################################################################
+# training parameters
+################################################################################
+train:
+  loss: "xentropy"       # must be either xentropy or iou
+  max_epochs: 150
+  lr: 0.01              # sgd learning rate
+  wup_epochs: 1          # warmup during first XX epochs (can be float)
+  momentum: 0.9          # sgd momentum
+  lr_decay: 0.99         # learning rate decay per epoch after initial cycle (from min lr)
+  w_decay: 0.0001        # weight decay
+  batch_size: 16              # batch size
+  report_batch: 10        # every x batches, report loss
+  report_epoch: 1        # every x epochs, report validation set
+  epsilon_w: 0.001       # class weight w = 1 / (content + epsilon_w)
+  save_summary: False    # Summary of weight histograms for tensorboard
+  save_scans: True       # False doesn't save anything, True saves some
+    # sample images (one per batch of the last calculated batch)
+  # in log folder
+  show_scans: False      # show scans during training
+  workers: 4            # number of threads to get data
+
+################################################################################
+# postproc parameters
+################################################################################
+post:
+  CRF:
+    use: False
+    train: True
+    params: False # this should be a dict when in use
+  KNN:
+    use: True # This parameter default is false
+    params:
+      knn: 5
+      search: 5
+      sigma: 1.0
+      cutoff: 1.0
+
+################################################################################
+# classification head parameters
+################################################################################
+# dataset (to find parser)
+dataset:
+  labels: "rellis"
+  scans: "rellis"
+  max_points: 150000 # max of any scan in dataset
+  sensor:
+    name: "OUSTER"
+    type: "spherical" # projective
+    fov_up: 22.5
+    fov_down: -22.5
+    img_prop:
+      width: 2048
+      height: 64
+    img_means: #range,x,y,z,signal
+      - 4.84649722
+      - -0.187910314
+      - 0.193718327
+      - -0.246564824
+      - 0.00260723157
+    img_stds: #range,x,y,z,signal
+      - 6.05381850
+      - 5.61048984
+      - 5.27298844
+      - 0.849105890
+      - 0.00284712457
+
+
+
+
+
+
+
+
+# Config format schema number
+format_version: 4
+
+###################
+## Model options
+model_params:
+  model_architecture: "cylinder_asym"
+  output_shape:
+    - 480
+    - 360
+    - 4
+  fea_dim: 9
+  out_fea_dim: 256
+  num_class: 20
+  num_input_features: 16
+  use_norm: True
+  init_size: 4
+
+###################
+## Dataset options
+dataset_params:
+  dataset_type: "cylinder_dataset"
+  pc_dataset_type: "SemKITTI_sk"
+  ignore_label: 0
+  return_test: False
+  fixed_volume_space: True
+  label_mapping: "/workspace/segmenters/Cylinder3D/config/label_mapping/semantic-kitti.yaml"
+  max_volume_space:
+    - 50
+    - 3.1415926
+    - 2
+  min_volume_space:
+    - 0
+    - -3.1415926
+    - -4
+
+
+###################
+## Data_loader options
+train_data_loader:
+  data_path: "/workspace/data/SemanticKitti/dataset/sequences/"
+  imageset: "train"
+  return_ref: True
+  batch_size: 2
+  shuffle: True
+  num_workers: 4
+
+val_data_loader:
+  data_path: "/workspace/data/SemanticKitti/dataset/sequences/"
+  imageset: "val"
+  return_ref: True
+  batch_size: 1
+  shuffle: False
+  num_workers: 4
+
+
+###################
+## Train params
+train_params:
+  model_load_path: "/workspace/results/Cylinder3D/SemanticKitti/model_load.pt"
+  model_save_path: "/workspace/results/Cylinder3D/SemanticKitti/model_save.pt"
+  checkpoint_every_n_steps: 4599
+  max_num_epochs: 40
+  eval_every_n_steps: 4599
+  learning_rate: 0.001

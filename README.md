@@ -11,7 +11,6 @@ Summary test matrix:
 | [2DPASS](https://arxiv.org/pdf/2207.04397.pdf) | | |
 | [SalsaNext](https://arxiv.org/pdf/2003.03653.pdf) | | | 
 
-
 ## Overview and Summary of Results
 
 This project aims to reproduce the performance of various 3D Semantic Segmentation architectures as posited on the [SemanticKitti Segmentation Task](http://semantic-kitti.org/tasks.html) and [paperswithcode](https://paperswithcode.com/). Furthermore, we evaluate the performance of these segmenters on more challenging datasets to evaluate their performance in less controlled environments.
@@ -25,12 +24,15 @@ Dataset | Segmenter | mean Intersection Over Union (mIOU) | Runtime Frequency (h
 SemanticKitti | Cylinder3D | ??? | ??? | ??? | ???
 SemanticKitti | COARSE3D | ??? | ??? | ??? | ???
 SemanticKitti | 2DPASS | ??? | ??? | ??? | ???
+SemanticKitti | SalsaNext | ??? | ??? | ??? | ???
 nuScenes | Cylinder3D | ??? | ??? | ??? | ???
 nuScenes | COARSE3D | ??? | ??? | ??? | ???
 nuScenes | 2DPASS | ??? | ??? | ??? | ???
+nuScenes | SalsaNext | ??? | ??? | ??? | ???
 RELLIS3D | Cylinder3D | ??? | ??? | ??? | ???
 RELLIS3D | COARSE3D | ??? | ??? | ??? | ???
 RELLIS3D | 2DPASS | ??? | ??? | ??? | ???
+RELLIS3D | SalsaNext | ??? | ??? | ??? | ???
 
 ## Reproduction
 
@@ -81,11 +83,14 @@ cd /workspace
 
 # train (e.g.):
 # SemanticKitti
-CUDA_VISIBLE_DEVICES=0 time python3 -u segmenters/Cylinder3D/train_cylinder_asym.py -y config/Cylinder3D/SemanticKitti.yaml
+time CUDA_VISIBLE_DEVICES=0 python3 -u segmenters/Cylinder3D/train_cylinder_asym.py -y config/Cylinder3D/SemanticKitti.yaml
 
 # nuScenes
 # preprocess data according to https://mmdetection3d.readthedocs.io/en/stable/datasets/nuscenes_det.html
-CUDA_VISIBLE_DEVICES=0 time python3-u segmenters/Cylinder3D/train_cylinder_asym_nuscenes.py -y config/Cylinder3D/nuScenes.yaml
+time CUDA_VISIBLE_DEVICES=0 python3 -u segmenters/Cylinder3D/train_cylinder_asym_nuscenes.py -y config/Cylinder3D/nuScenes.yaml
+
+# Rellis3D
+time CUDA_VISIBLE_DEVICES=0 python3 -u segmenters/Cylinder3D/train_cylinder_asym.py -y config/Cylinder3D/Rellis3D.yaml
 
 ```
 
@@ -101,7 +106,7 @@ time python3 gen_sem_weak_label_rand_grid.py --dataset SemanticKITTI --dataset_r
 
 # train
 cd /workspace/segmenters/COARSE3D/tasks/weak_segmentation
-CUDA_VISIBLE_DEVICES="0" time python3 -m torch.distributed.launch --nproc_per_node=1 --master_port=26889 --use_env main.py /workspace/config/COARSE3D/SemanticKitti.yaml
+time CUDA_VISIBLE_DEVICES="0" python3 -m torch.distributed.launch --nproc_per_node=1 --master_port=26889 --use_env main.py /workspace/config/COARSE3D/SemanticKitti.yaml
 ```
 
 #### 2DPASS
@@ -126,6 +131,21 @@ time python3 main.py --config SemanticKitti.yaml --gpu 0 --test --num_vote 12 --
 cd /workspace/segmenters/2DPASS
 time python3 main.py --config nuScenes.yaml --gpu 0 --test --num_vote 12 --checkpoint /workspace/results/2DPASS/nuScenes/model_save.pt
 ```
+
+#### SalsaNext
+
+```bash
+# enter development environment
+./build_and_run.sh SalsaNext
+
+# train (SemanticKitti)
+./segmenters/Salsanext/train.sh -d data/SemanticKitti/dataset/sequences/ -a config/SalsaNext/SemanticKitti.yaml -n SalsaNextSemanticKitti -l results/SalsaNext/SemanticKitti/logs -c 0
+
+# train (Rellis3D)
+./segmenters/Salsanext/train.sh -d data/Rellis3D/Rellis-3D/ -a config/SalsaNext/Rellis3D.yaml -n SalsaNextRellis3D -l results/SalsaNext/Rellis3D/logs -c 0
+
+```
+
 
 ## References
 
