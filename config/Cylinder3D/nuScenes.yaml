@@ -9,14 +9,14 @@ model_params:
   output_shape:
     - 480
     - 360
-    - 32
+    - 64
 
   fea_dim: 9
   out_fea_dim: 256
   num_class: 17
   num_input_features: 16
   use_norm: True
-  init_size: 32
+  init_size: 64
 
 
 ###################
