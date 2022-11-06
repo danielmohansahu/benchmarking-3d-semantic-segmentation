@@ -1,48 +1,73 @@
 # benchmarking-3d-semantic-segmentation
+
 Benchmarking state of the art 3D Semantic Segmentation classifiers against popular datasets.
 
-## Overview
+Summary test matrix:
+
+| Segmenter / Dataset | [SemanticKitti](http://www.semantic-kitti.org/dataset.html) | [nuScenes](https://www.nuscenes.org/nuscenes) | [RELLIS3D](https://unmannedlab.github.io/research/RELLIS-3D)
+| --- | --- | --- | ---
+| [Cylinder3D](https://arxiv.org/pdf/2011.10033.pdf) | | |
+| [COARSE3D](https://arxiv.org/pdf/2210.01784.pdf) | | |
+| [2DPASS](https://arxiv.org/pdf/2207.04397.pdf) | | |
 
 
+## Overview and Summary of Results
 
-### Metrics
+This project aims to reproduce the performance of various 3D Semantic Segmentation architectures as posited on the [SemanticKitti Segmentation Task](http://semantic-kitti.org/tasks.html) and [paperswithcode](https://paperswithcode.com/). Furthermore, we evaluate the performance of these segmenters on more challenging datasets to evaluate their performance in less controlled environments.
 
- - Training speed
- - Runtime speed
- - MIOU
- - GPU / CPU performance
- - 
+Rough metrics are collected on each of these permutations of dataset / segmenter. These metrics are not a perfect measure of success, but they help guide the discussion. Each of these was collected on the same hardware (GeForce RTX 2080 SUPER Mobile / Max-Q, Intel Core i7-10750H @2.6GHz x 12, 32 GB RAM). Due to the nature of some of the segmenters we weren't able to implement fixed software version control (e.g. for PyTorch).
 
-### Datasets
- - SemanticKitti
- - nuScenes
- - RELLIS3D
+Summary of collected metrics:
 
-## Development Environment
+Dataset | Segmenter | mean Intersection Over Union (mIOU) | Runtime Frequency (hz) | Runtime GPU Usage (GB) | Time to Train (h)
+--- | --- | --- | --- | --- | ---
+SemanticKitti | Cylinder3D | ??? | ??? | ??? | ???
+SemanticKitti | COARSE3D | ??? | ??? | ??? | ???
+SemanticKitti | 2DPASS | ??? | ??? | ??? | ???
+nuScenes | Cylinder3D | ??? | ??? | ??? | ???
+nuScenes | COARSE3D | ??? | ??? | ??? | ???
+nuScenes | 2DPASS | ??? | ??? | ??? | ???
+RELLIS3D | Cylinder3D | ??? | ??? | ??? | ???
+RELLIS3D | COARSE3D | ??? | ??? | ??? | ???
+RELLIS3D | 2DPASS | ??? | ??? | ??? | ???
 
-It is recommended to run everything within a Virtual Environment to avoid dependency pollution with your host.
+## Reproduction
 
-```bash
-pip install virtualenv
-virtualenv venv
-source venv/bin/activate
-pip install --upgrade pip
+If you're interested in reproducing some of these results the following sections describe how to train and evaluate each combination of model and dataset. Unfortunately the process of getting the data for each dataset is bespoke and cannot be automated (some require online accounts).
+
+### Prerequisites
+
+The development environment is all Docker based. Ensure you have `docker` installed, as well as the proper Nvidia drivers for your machine and `nvidia-docker2` to allow GPU access within a container environment.
+
+### Dataset Collection
+
+Please follow the instructions on the respective dataset website to get them, and ensure they're in the following format:
+
+<details><summary>Click for data directory structure:</summary><br>
+
+```
+.
+├── data
+│   ├── nuScenes
+│   │   ├── lidarseg
+│   │   ├── maps
+│   │   ├── samples
+│   │   ├── sweeps
+│   │   ├── v1.0-mini
+│   │   ├── v1.0-test
+│   │   └── v1.0-trainval
+│   └── SemanticKitti
+│       └── dataset
+│           └── sequences
 ```
 
-From within the virtual environment install all dependencies.
+</details>
 
-@TODO record exact versions used in testing and set up individual requirements.txt.
+### Training and Evaluation
 
-```bash
-# Cylinder3D
-pip install torch
-pip install torch-scatter spconv
-```
+The following are instructions on how to train and evaluate each supported permutation of dataset and segmenter.
 
-
-## Training
-
-### Cylinder3D
+#### Cylinder3D
 
 ```bash
 # enter development environment
@@ -63,7 +88,7 @@ CUDA_VISIBLE_DEVICES=0 python3 -u segmenters/Cylinder3D/train_cylinder_asym_nusc
 
 ```
 
-### COARSE3D
+#### COARSE3D
 
 ```bash
 # enter build environment
