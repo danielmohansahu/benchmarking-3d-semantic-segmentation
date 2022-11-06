@@ -139,10 +139,11 @@ time python3 main.py --config nuScenes.yaml --gpu 0 --test --num_vote 12 --check
 ./build_and_run.sh SalsaNext
 
 # train (SemanticKitti)
-./segmenters/Salsanext/train.sh -d data/SemanticKitti/dataset/sequences/ -a config/SalsaNext/SemanticKitti.yaml -n SalsaNextSemanticKitti -l results/SalsaNext/SemanticKitti/logs -c 0
+cd segmenters/SalsaNext
+time ./train.sh -d /workspace/data/SemanticKitti/dataset/ -a /workspace/config/SalsaNext/SemanticKitti.yaml -n SalsaNextSemanticKitti -l /workspace/results/SalsaNext/SemanticKitti/logs -c 0
 
 # train (Rellis3D)
-./segmenters/Salsanext/train.sh -d data/Rellis3D/Rellis-3D/ -a config/SalsaNext/Rellis3D.yaml -n SalsaNextRellis3D -l results/SalsaNext/Rellis3D/logs -c 0
+time ./train.sh -d /workspace/data/Rellis3D/Rellis-3D/ -a /workspace/config/SalsaNext/Rellis3D.yaml -n SalsaNextRellis3D -l /workspace/results/SalsaNext/Rellis3D/logs -c 0
 
 ```
 

@@ -1,2 +1,4 @@
 nuscenes-devkit
 pyyaml
+tensorflow
+tensorboard
