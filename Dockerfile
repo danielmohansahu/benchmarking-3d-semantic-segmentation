@@ -91,7 +91,7 @@ CMD byobu
 
 
 ###################################### 2DPASS ########################################
-FROM base AS 2DPASS
+FROM base AS TWODPASS
 ARG CUDA_VERSION
 ARG SEGMENTER="2DPASS"
 

@@ -107,18 +107,28 @@ CUDA_VISIBLE_DEVICES="0" time python3 -m torch.distributed.launch --nproc_per_no
 #### 2DPASS
 
 ```bash
-# enter build environment
-./build_and_run.sh 2DPASS
+# enter build environment (build stage is named oddly due to Docker stage constraints)
+./build_and_run.sh TWODPASS
 
 # train on semantickitti
-time python3 segmenters/2DPASS/main.py --log_dir segmenters/2DPASS/2DPASS_semkitti --config config/2DPASS/SemanticKitti.yaml --gpu 0
+cd /workspace/segmenters/2DPASS
+time python3 main.py --log_dir 2DPASS_semkitti --config /workspace/config/2DPASS/SemanticKitti.yaml --gpu 0
 
 # train on nuScenes
-time python3 segmenters/2DPASS/main.py --log_dir segmenters/2DPASS/2DPASS_nusc --config config/2DPASS/nuScenes.yaml --gpu 0
+cd /workspace/segmenters/2DPASS
+time python3 main.py --log_dir 2DPASS_nusc --config /workspace/config/2DPASS/nuScenes.yaml --gpu 0
 
 # evaluation (semantickitti)
-time python3 segmenters/2DPASS/main.py --config config/2DPASS/SemanticKitti.yaml --gpu 0 --test --num_vote 12 --checkpoint results/2DPASS/SemanticKitti/model_save.pt
+cd /workspace/segmenters/2DPASS
+time python3 main.py --config SemanticKitti.yaml --gpu 0 --test --num_vote 12 --checkpoint /workspace/results/2DPASS/SemanticKitti/model_save.pt
 
 # evaluation (nuscenes)
-time python3 segmenters/2DPASS/main.py --config config/2DPASS/nuScenes.yaml --gpu 0 --test --num_vote 12 --checkpoint results/2DPASS/nuScenes/model_save.pt
+cd /workspace/segmenters/2DPASS
+time python3 main.py --config nuScenes.yaml --gpu 0 --test --num_vote 12 --checkpoint /workspace/results/2DPASS/nuScenes/model_save.pt
 ```
+
+## References
+
+The following references were invaluable in understanding and selecting specific segmenters and datasets for reproduction and evaluation.
+
+ - Deep Learning for 3D Point Clouds: A Survey [paper](https://arxiv.org/pdf/1912.12033.pdf) [code](https://github.com/The-Learning-And-Vision-Atelier-LAVA/SoTA-Point-Cloud)
