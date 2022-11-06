@@ -1,3 +1,6 @@
 # ignore all build products
 *.pt
 *.npy
+
+# and debugging information
+debug-*
