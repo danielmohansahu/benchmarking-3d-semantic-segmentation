@@ -9,14 +9,14 @@ model_params:
   output_shape:
     - 480
     - 360
-    - 64
+    - 20
 
   fea_dim: 9
   out_fea_dim: 256
   num_class: 17
   num_input_features: 16
   use_norm: True
-  init_size: 64
+  init_size: 20
 
 
 ###################
@@ -46,7 +46,7 @@ train_data_loader:
   return_ref: True
   batch_size: 2
   shuffle: True
-  num_workers: 4
+  num_workers: 10
 
 val_data_loader:
   data_path: "/workspace/data/nuScenes/"
@@ -54,7 +54,7 @@ val_data_loader:
   return_ref: True
   batch_size: 1
   shuffle: False
-  num_workers: 4
+  num_workers: 10
 
 
 ###################
