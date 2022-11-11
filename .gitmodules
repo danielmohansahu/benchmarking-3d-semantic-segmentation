@@ -7,3 +7,6 @@
 [submodule "segmenters/COARSE3D"]
 	path = segmenters/COARSE3D
 	url = https://github.com/cv-rits/COARSE3D.git
+[submodule "segmenters/SalsaNext"]
+	path = segmenters/SalsaNext
+	url = https://github.com/TiagoCortinhal/SalsaNext.git
