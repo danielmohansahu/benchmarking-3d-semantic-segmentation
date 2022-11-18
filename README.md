@@ -134,6 +134,13 @@ time python3 main.py --config nuScenes.yaml --gpu 0 --test --num_vote 12 --check
 
 #### SalsaNext
 
+SalsaNext has some compatibility issues with newer versions of TensorFlow. We had to patch the repo in order to run locally:
+
+```bash
+# pre-run step; only do this once!
+cd segmenters/SalsaNext && git apply ../../config/SalsaNext/salsanext.patch
+```
+
 ```bash
 # enter development environment
 ./build_and_run.sh SalsaNext
