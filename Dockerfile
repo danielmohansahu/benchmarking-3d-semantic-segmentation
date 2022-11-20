@@ -106,9 +106,9 @@ RUN apt-get update -qq \
 # install pip dependencies
 COPY config/${SEGMENTER}/requirements.txt /tmp/requirements.txt
 RUN python3 -m pip install --upgrade pip \
-    && python3 -m pip install torch==1.8.0+cu111 torchvision==0.9.0+cu111 torchaudio==0.8.0 --extra-index-url https://download.pytorch.org/whl/cu111 \
-    && python3 -m pip install torch-scatter -f https://data.pyg.org/whl/torch-1.8.0+cu111.html \
-    && python3 -m pip install spconv-cu111 \
+    && python3 -m pip install torch==1.12.0+cu113 torchvision==0.13.0+cu113 --extra-index-url https://download.pytorch.org/whl/cu113 \
+    && python3 -m pip install torch-scatter -f https://data.pyg.org/whl/torch-1.12.0+cu113.html \
+    && python3 -m pip install spconv-cu113 \
     && python3 -m pip install -r /tmp/requirements.txt
 
 # drop into a byobu shell
