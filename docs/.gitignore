@@ -1,0 +1,5 @@
+# ignore pdflatex output
+*.log
+*.toc
+*.out
+*.aux
