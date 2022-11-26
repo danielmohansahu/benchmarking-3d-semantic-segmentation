@@ -151,7 +151,7 @@ time ./train.sh -d /workspace/data/SemanticKitti/dataset/ -a /workspace/config/S
 
 # train (Rellis3D)
 cd segmenters/SalsaNext
-time ./train.sh -d /workspace/data/Rellis3D/Rellis-3D/ -a /workspace/config/SalsaNext/Rellis3D.yaml -n SalsaNextRellis3D -l /workspace/results/SalsaNext/Rellis3D/logs -c 0
+time ./train.sh -d /workspace/data/Rellis3D/Rellis-3D/ -a /workspace/config/SalsaNext/Rellis3D.yaml -n SalsaNextRellis3D -l /workspace/results/SalsaNext/Rellis3D/logs -r /workspace/config/SalsaNext/Rellis3DLabels.yaml -c 0
 
 ```
 
