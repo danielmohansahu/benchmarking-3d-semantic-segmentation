@@ -1,13 +1,30 @@
 \section{Methodology}
 \label{chap:methodology}
 
-Discussion of approach
- - package dependencies (docker)
- - source code directly (no repoing)
- - training / validation hardware (limitations)
+As our goal is experimental reproducibility of results, it behooves us to carefully (and minimally) document the setup required to train and evaluate each permutation of dataset / algorithm that we consider. All our code is and method can be examine in detail on \href{https://github.com/danielmohansahu/benchmarking-3d-semantic-segmentation}{GitHub}.
 
 \subsection{Dependency Handling}
 \label{dependency-handling}
 
+We leverage containerization (via Docker) to create isolated build and training environments and freeze dependencies wherever possible. Each segmenter has its own associated Docker image with, e.g., a specific version of Torch installed. We include the source code of the primary implementation of each segmenter directly as a git submodule pointing to the latest relevant release. In cases where source code changes are necessary we capture these as git patch files for full transparency (rather than maintaining a fork).
+
+The general workflow is:
+\begin{enumerate}
+  \item Download datasets.
+  \item Build segmenter Docker image and enter an interactive container.
+  \item Train.
+\end{enumerate}
+
+Unfortunately, most situations were not so clear cut. For example, Cylinder3D relies on an unavailable package spconv which must be installed from source. We document additional steps required in the \href{https://github.com/danielmohansahu/benchmarking-3d-semantic-segmentation/blob/main/README.md}{README}.
+
 \subsection{Limitations}
 \label{limitations}
+
+Some training and validation conditions are not fully controllable. The largest of these is the hardware requirement. Most of the algorithms considered in this study were trained on high performance computing hardware - i.e. multi-GPU machines with much more memory available than we had available. Our results were collected on a laptop with GeForce RTX 2080 SUPER Mobile / Max-Q, Intel Core i7-10750H @2.6GHz x 12, 32 GB RAM. This necessitated changing some training hyperparameters. In select cases this should not affect performance (i.e. where there was parallelization). In other cases the parameters will directly have a deleterious effect, as when we reduce the voxel granularity in Cylinder3D.
+
+One wonders how benchmarking reults would change if each submission was trained and evaluated on the same hardware, and how freezing certain hyperparameters (like number of epochs) would affect the standings.
+
+\subsection{Metrics}
+\label{metrics}
+
+Lorum, ipsum, etc.
