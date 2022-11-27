@@ -12,7 +12,7 @@ Datasets are collections of raw point cloud data along with per-point hand-label
 
 We consider the datasets listed in Table \ref{tab:datasets}:
 \begin{enumerate}
-  \item SemanticKitti \cite{semantickitti}: One of the first publicly available datasets, SemanticKitti is the de facto data against which most algorithms test. This dataset features city driving in Germany with 28 semantic classes related salient to on-road autonomous driving.
+  \item SemanticKitti \cite{semantickitti1,semantickitti2}: One of the first publicly available datasets, SemanticKitti is the de facto data against which most algorithms test. This dataset features city driving in Germany with 28 semantic classes related salient to on-road autonomous driving.
   \item nuScenes \cite{nuscenes}: Released by Motional, this dataset is the second most popular available. It features complex city driving in Boston and Singapore, including driving in adverse weather conditions. nuScenes has 32 semantic classes salient to on-road autonomous driving.
   \item Rellis3D \cite{rellis3d}: A product of collaboration between the Army Research Lab and Texas A\&M University, this dataset considers the problem of offroad autonomy. 20 semantic classes are available which are useful in offroad driving.
 \end{enumerate}
@@ -41,7 +41,7 @@ We consider the datasets listed in Table \ref{tab:datasets}:
 \subsection{Segmenters}
 \label{chap:segmenters}
 
-There are many different approaches to the problem of 3D Semantic Segmentation. Some aim to get the best possible score for a given challenge using pure 3D data; others use multimodal fusion. Some are less focused on overall performance and instead attempt to make do with less data or less labeled data \cite{2dpass}. Some tackle the problem of sparsity with sparse convolution \cite{SPARSECONV}; others reject a voxelized representation in favor of pure point-based representations \cite{pointnet}. The sheer scale of this problem makes it impossible to choose a "best" algorithm. Although many of the algorithms considered in this project were chosen because they topped the ranking of a challenge, others were chosen as representative or interesting on the merit of their approach.
+There are many different approaches to the problem of 3D Semantic Segmentation \cite{deeplearningpcsurvey}. Some aim to get the best possible score for a given challenge using pure 3D data; others use multimodal fusion. Some are less focused on overall performance and instead attempt to make do with less data or less labeled data \cite{2dpass}. Some tackle the problem of sparsity with sparse convolution \cite{sparseconv}; others reject a voxelized representation in favor of pure point-based representations \cite{pointnet}. The sheer scale of this problem makes it impossible to choose a "best" algorithm. Although many of the algorithms considered in this project were chosen because they topped the ranking of a challenge, others were chosen as representative or interesting on the merit of their approach.
 
 \begin{enumerate}
   \item SalsaNext \cite{salsanext}: A range-image based approach which was released in 2020 and benchmarked against SemanticKitti.

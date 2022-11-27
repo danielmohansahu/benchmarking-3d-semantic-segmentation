@@ -27,4 +27,23 @@ One wonders how benchmarking reults would change if each submission was trained 
 \subsection{Metrics}
 \label{metrics}
 
-Lorum, ipsum, etc.
+\begin{equation}
+  \label{eq:miou}
+  mIoU = \frac{1}{N_{class}}\sum_{i=1}^{N_{class}} \frac{TP(i)}{TP(i) + FP(i) + FN(i)}
+\end{equation}
+
+\begin{equation}
+  \label{eq:oa}
+  oa = \frac{TP + TN}{TP + FP + TN + FN}
+\end{equation}
+
+Dataset competitions usually rank submissions by either mean Intersection Over Union (mIoU, Equation \ref{eq:miou} where $TP,FP,TN,FN$ refer to true positives, false positives, true negatives, false negatives, respectively) or Overall Accuracy (OA, Equation \ref{eq:oa}, same definitions as mIoU). Both of these are pure evaluations of performance.
+
+In addition to these we consider the other following metrics to evaluate aspects of training relevant to a potential user of each algorithm. Each of these metric was collected using the same hardware (GeForce RTX 2080 SUPER Mobile / Max-Q, Intel Core i7-10750H @2.6GHz x 12, 32 GB RAM).
+
+\begin{enumerate}
+  \item Time to Evaluate: total amount of time it took to evaluate a trained model against a dataset. This captures (essentially) runtime performance.
+  \item Runtime GPU usage - dictates the sort of hardware required to run a trained model.
+  \item Time to Train: total amount of time it took to train a model against a dataset.
+\end{enumerate}
+
