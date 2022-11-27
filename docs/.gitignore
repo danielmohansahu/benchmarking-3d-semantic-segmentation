@@ -3,3 +3,6 @@
 *.toc
 *.out
 *.aux
+*.bbl
+*.blg
+*.pdf
