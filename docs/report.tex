@@ -1,0 +1,56 @@
+%%
+%% 3D Semantic Segmentation Benchmarking Results
+%% ENPM808W, Fall 2022
+%% Daniel M. Sahu
+%% 
+%% --------------------------------------------
+%%
+%% Report template credit goes to Addi Ait-Mlouk
+%%  https://www.overleaf.com/latex/templates/mini-project-report-template/dqqzhrfpcgmq
+%% 
+%% Created by Addi Ait-Mlouk, School of informatics, University of Skövde
+%% addi.ait-mlouk@his.se
+%% aitmlouk@gmail.com
+%% 
+%% ---------------------------------------------
+
+
+\documentclass[12pt]{article}
+% LaTeX packages and global styles
+\input{base/packages}
+\input{base/style}
+
+% Beginning of the document
+\begin{document}
+    % Title page and unnumbered sections
+    \input{sections/00_front_page}
+    \input{sections/00_abstract}
+    
+    % Index of the document and figures
+    \begingroup
+        % Links are normally blue, but indexes are set to black
+        % so that everything does not appear blue
+        \hypersetup{linkcolor=black}
+        \tableofcontents
+        %\listoffigures % uncomment to display list of code 
+        %\lstlistoflistings % uncomment to display list of code 
+    \endgroup
+    
+    % Change page number style to normal
+    \clearpage\pagenumbering{arabic}
+    
+    % Sections and chapters
+    \input{sections/01_introduction}
+    \input{sections/02_background}
+    \input{sections/03_methodology}
+    \input{sections/04_results}
+    \input{sections/05_discussion}
+    % \appendix
+    % \input{sections/appendix}
+    
+    % Bibliography 
+    \bibliographystyle{plainnat}
+    \bibliography{bibliography.bib}
+
+% End of the document
+\end{document}
