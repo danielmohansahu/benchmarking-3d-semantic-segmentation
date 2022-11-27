@@ -18,7 +18,7 @@ train:
     # sample images (one per batch of the last calculated batch)
   # in log folder
   show_scans: False      # show scans during training
-  workers: 12            # number of threads to get data
+  workers: 4            # number of threads to get data
 
 ################################################################################
 # postproc parameters
@@ -50,8 +50,8 @@ dataset:
     fov_up: 22.5
     fov_down: -22.5
     img_prop:
-      width: 256
-      height: 16
+      width: 2048
+      height: 64
     img_means: #range,x,y,z,signal
       - 4.84649722
       - -0.187910314
@@ -64,6 +64,13 @@ dataset:
       - 5.27298844
       - 0.849105890
       - 0.00284712457
+
+
+
+
+
+
+
 
 # Config format schema number
 format_version: 4
@@ -110,7 +117,7 @@ train_data_loader:
   return_ref: True
   batch_size: 2
   shuffle: True
-  num_workers: 1
+  num_workers: 4
 
 val_data_loader:
   data_path: "/workspace/data/SemanticKitti/dataset/sequences/"
@@ -118,7 +125,7 @@ val_data_loader:
   return_ref: True
   batch_size: 1
   shuffle: False
-  num_workers: 1
+  num_workers: 4
 
 
 ###################
