@@ -1,55 +1,37 @@
 \section{Introduction}
 \label{chap:introduction}
 
-Write a short introduction to the assignment you have selected. Why did you choose this assignment, i.e., what are the analysis problems/questions/hypotheses, challenges, and the gain(s) of solving the problems? Give the reader a short introduction and the necessary background information about the themes that you will concentrate on in your report. Make sure that concepts are explained/defined. Do not forget to refer to your sources – both in your written text and in a reference list. If you are unsure how to refer to your sources, please have a look here: \url{https://www.his.se/en/library/write-and-cite/referencing/}
+The potential of autonomous driving has been discussed enough, and with far more eloquence than I can match, to warrant bypassing that discussion in this paper. Suffice it to say that 3D Semantic Segmentation is a key enabling technology for autonomous vehicles (among other things), which speaks to its importance. Semantic Segmentation (discussed in more detail in Chapter \ref{chap:background}) is a method of assigning a semantic label (e.g. "car", "bush", "human") to each element of a data stream. Impressive advances have been made in the 2D case, e.g. where the data stream is an image and the labels are assigned to individual pixels, with the technology advancing enough to be used \href{https://nanonets.com/blog/semantic-image-segmentation-2020/}{outside academia}. The 3D case, however, has certain fundamental challenges like sparsity which make it an exponentially harder problem to solve.
 
-\subsection{Research questions/hypotheses}
-\label{sec:quesstion}
-Based on the problem domain described above, list and describe your research questions/hypotheses to be answered in your report. These questions can also be used during your user evaluation, i.e., will the users be able to answer these questions with the help of your tool? 
+Recognizing this shortcoming, autonomous vehicle companies have taken to collecting and publicly releasing curated (labeled) datasets with the goal of enabling research into supervised learning techniques. To further spur competition, these datasets generally have an associated challenge (\href{https://waymo.com/open/challenges/}{waymo}, \href{https://codalab.lisn.upsaclay.fr/competitions/6280}{SemanticKitti}, ...) which ranks submissions based on their performance against a reserved test set. This approach has acted as a forcing function for research into 3D Semantic Segmentation methods, with competitors often \href{https://github.com/xinge008/Cylinder3D}{advertising their success} as a badge of honor.
 
-\section{Background}
-\label{chap:background}
-How do you plan to address the problem and answer your hypotheses? Review and describe the related literature. It is encouraged to make use of the seminar papers already provided, if applicable. What are the previous researches’ questions, results, and solutions and how do they relate to your problem? For example, if your project is about analyzing predictions of the effects of global warming, how have others addressed this problem? Which analysis techniques have they used for their particular data and why? That is, can the related research found help you in your work on your data, analysis, visualization, and evaluation?
+Unfortunately, there is a technological gap here between success in the competition and success "in the real world". When one digs into the implementation of these successful algorithms one often finds fairly brittle code - hardcoding for certain datasets, dependencies on deprecated libraries, etc, all of which make experimental reproducibility a challenge. This isn't to say researchers should shoulder the considerable burden and engineering effort required to turn research code into production ready code, but it doesn't bode well if a top-ranking algorithm can't be reproduced or trivially extended to an alternative dataset.
 
+\subsection{Goal}
+\label{sec:goal}
 
-\section{Data}
-\label{chap:data}
-Briefly describe the dataset and the parameters that will be important for you in order to answer your questions/hypotheses. Indicate the source. If available online, providing a URL link helps the readers.
+In short, the goal of this project is to train, evaluate, and measure each permutation of dataset and methodology from Table \ref{tab:datasets} and Table \ref{tab:segmenters}. We provide detailed analysis of how these results compare to publicly available benchmarks (where applicable). In addition, we analyze those permutations which cannot be easily / reliably reproduced, distinguishing between resource limitation failures and a genuine technical lack of reproducibility.
 
-\subsection{Data preparation}
-\label{sec:data}
-Describe what you did in order to use the data for analysis.
+\begin{table}[h!]
+\begin{center}
+\begin{tabular}{ |c|c|c| }
+ \hline
+  SemanticKitti \cite{semantickitti1} \cite{semantickitti2} & nuScenes \cite {nuscenes} & Rellis3D \cite{rellis3d} \\
+ \hline
+\end{tabular}
+\caption{Publicly available 3D labeled datasets.}
+\label{tab:datasets}
+\end{center}
+\end{table}
 
-\section{Approach}
-\label{chap:approach}
-Describe the techniques that you will use for managing and analyzing your data and the tool(s) that you will use for data management/data analysis and evaluation. Motivate why you have chosen a certain method over others and describe how you plan to evaluate your solution. This section should give a detailed account of what you did in order to answer your questions.
-
-\section{Results}
-\label{chap:results}
-Describe your final data analysis results and everything that you discovered on the way the put you forward and you think is worth describing here. Elaborate on the significance of your findings/results and convey your thoughts. 
-
-\section{Discussion}
-\label{chap:discussion}
-What do the results mean (their significance and to whom) and how do they answer your research questions/hypotheses? From the evaluation and validation of the tool, what can you conclude? 
-
-\subsection{Limitations and Challenges}
-\label{sec:limitation}
-What could have been investigated if given more time? What have been difficult when solving the problem and getting answers for your research questions/hypotheses?
-
-\section{Conclusion}
-\label{chap:conclusion}
-Write the conclusion. What did you gain from the project assignment? Briefly explain your questions/hypotheses, findings, and meaningful discussion points in relation to the data collection, data management, data analysis, visualization and interaction concepts, and evaluation of your tool.
-What additional investigations need to be performed (or what is the limitation) in order to say that your solution is a good one for the problem? 
-
-\section{Reflections on own work}
-\label{chap:reflection}
-\begin{itemize}
-    \item Describe how you decided to scope (and/or re-scope) your problem formulation during the work, and given the data you had access to.
-    \item Describe how you searched for knowledge on how to scope the DS question you wanted to answer 
-    \item understand how to implement, test, and validate your results. 
-    \item Which sources helped you to get progress and how?
-    \item What would you have done differently if you were to start over again, for understanding the problem faster and for understanding what could be done with the data you had access to?
-    \item What else is there that you would have changed about this assignment?
-\end{itemize}
-
-\newpage
+\begin{table}[h!]
+\begin{center}
+\begin{tabular}{ |c|c|c|c| }
+ \hline
+  Cylinder3D \cite{cylinder3d} & SalsaNext \cite{salsanext} & 2DPASS \cite{2dpass} & COARSE3D \cite{coarse3d} \\
+ \hline
+\end{tabular}
+\end{center}
+\caption{3D Semantic Segmentation algorithms}
+\label{tab:segmenters}
+\end{table}
