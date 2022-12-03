@@ -21,7 +21,7 @@ Summary of collected metrics:
 
 Dataset | Segmenter | mean Intersection Over Union (mIOU) | Overall Accuracy (OA) | Runtime Frequency (hz) | Runtime GPU Usage (GB) | Time to Train (days)
 --- | --- | --- | --- | --- | --- | ---
-SemanticKitti | Cylinder3D | 61.0 | ??? | ??? | ??? | 3.6
+SemanticKitti | Cylinder3D | 61.0 | ??? | 3.0 | 2.9-3.2 | 3.6
 SemanticKitti | COARSE3D | ??? | ??? | ??? | ??? | ???
 SemanticKitti | 2DPASS | 55.6 | ??? | ??? | ??? | 7.3
 SemanticKitti | SalsaNext | 55.5 | ??? | ??? | ??? | 0.8
