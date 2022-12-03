@@ -2,14 +2,14 @@
 
 Benchmarking state of the art 3D Semantic Segmentation classifiers against popular datasets.
 
-Summary test matrix:
+Summary test matrix - (T == Trained, V == Validated, E == Encountered Errors):
 
-| Segmenter / Dataset | [SemanticKitti](http://www.semantic-kitti.org/dataset.html) | [nuScenes](https://www.nuscenes.org/nuscenes) | [RELLIS3D](https://unmannedlab.github.io/research/RELLIS-3D) | [Semantic3D](http://www.semantic3d.net/) | [OFFSED](https://www.dfki.uni-kl.de/~neigel/offsed.html)
-| --- | --- | --- | --- | --- | ---
-| [Cylinder3D](https://arxiv.org/pdf/2011.10033.pdf) | | | | |
-| [COARSE3D](https://arxiv.org/pdf/2210.01784.pdf) | | | | |
-| [2DPASS](https://arxiv.org/pdf/2207.04397.pdf) | | | | |
-| [SalsaNext](https://arxiv.org/pdf/2003.03653.pdf) | | | | | 
+| Segmenter / Dataset | [SemanticKitti](http://www.semantic-kitti.org/dataset.html) | [nuScenes](https://www.nuscenes.org/nuscenes) | [RELLIS3D](https://unmannedlab.github.io/research/RELLIS-3D) |
+| --- | --- | --- | --- |
+| [Cylinder3D](https://arxiv.org/pdf/2011.10033.pdf) | T+V | T | |
+| [COARSE3D](https://arxiv.org/pdf/2210.01784.pdf) | E | | |
+| [2DPASS](https://arxiv.org/pdf/2207.04397.pdf) | T | | |
+| [SalsaNext](https://arxiv.org/pdf/2003.03653.pdf) | T | | T |
 
 ## Overview and Summary of Results
 
@@ -19,20 +19,20 @@ Rough metrics are collected on each of these permutations of dataset / segmenter
 
 Summary of collected metrics:
 
-Dataset | Segmenter | mean Intersection Over Union (mIOU) | Overall Accuracy (OA) | Runtime Frequency (hz) | Runtime GPU Usage (GB) | Time to Train (days)
---- | --- | --- | --- | --- | --- | ---
-SemanticKitti | Cylinder3D | 61.0 | ??? | 3.0 | 2.9-3.2 | 3.6
-SemanticKitti | COARSE3D | ??? | ??? | ??? | ??? | ???
-SemanticKitti | 2DPASS | 55.6 | ??? | ??? | ??? | 7.3
-SemanticKitti | SalsaNext | 55.5 | ??? | ??? | ??? | 0.8
-nuScenes | Cylinder3D | 73.2 | ??? | ??? | ??? | 5.2
-nuScenes | COARSE3D | ??? | ??? | ??? | ??? | ???
-nuScenes | 2DPASS | ??? | ??? | ??? | ??? | ???
-nuScenes | SalsaNext | ??? | ??? | ??? | ??? | ???
-RELLIS3D | Cylinder3D | ??? | ??? | ??? | ??? | ???
-RELLIS3D | COARSE3D | ??? | ??? | ??? | ??? | ???
-RELLIS3D | 2DPASS | ??? | ??? | ??? | ??? | ???
-RELLIS3D | SalsaNext | 55.3 | ??? | ??? | ??? | 0.2
+Dataset | Segmenter | mean Intersection Over Union (mIOU) | Runtime Frequency (hz) | Runtime GPU Usage (GB) | Time to Train (days)
+--- | --- | --- | --- | --- | ---
+SemanticKitti | Cylinder3D | 61.0 | 3.0 | 2.9-3.2 | 3.6
+SemanticKitti | COARSE3D | ???  | ??? | ??? | ???
+SemanticKitti | 2DPASS | 55.6  | ??? | ??? | 7.3
+SemanticKitti | SalsaNext | 55.5  | ??? | ??? | 0.8
+nuScenes | Cylinder3D | 73.2 | ???  | ??? | 5.2
+nuScenes | COARSE3D | ??? | ??? |  ??? | ???
+nuScenes | 2DPASS | ??? | ??? |  ??? | ???
+nuScenes | SalsaNext | ??? |  ??? | ??? | ???
+RELLIS3D | Cylinder3D | ??? |  ??? | ??? | ???
+RELLIS3D | COARSE3D | ??? |  ??? | ??? | ???
+RELLIS3D | 2DPASS | ??? | ??? | ??? | ???
+RELLIS3D | SalsaNext | 55.3 |  ??? | ??? | 0.2
 
 ## Reproduction
 
