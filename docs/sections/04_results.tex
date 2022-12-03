@@ -1,5 +1,39 @@
 \section{Results}
-\label{chap:Results}
+\label{chap:results}
 
-Table of results, then a discussion of each interesting permutation and the associated challenges.
+\begin{center}
+\begin{tabular}{ |c|c|c|c|c|c|c| }
+ \hline
+ Dataset & Segmenter & mIOU (board) & mIOU & Rate (hz) & GPU (GB) & Train (days) \\
+ \hline
+  SemanticKitti & Cylinder3D & 68.9 \cite{semantickittileaderboard} & 61.0 & 3.0 & 2.9-3.2 & 3.6 \\
+  SemanticKitti & COARSE3D & 57.57 \cite{coarse3dgithub} & ???  & ??? & ??? & ??? \\
+  SemanticKitti & 2DPASS & 72.9 \cite{semantickittileaderboard} & 55.6  & ??? & ??? & 7.3 \\
+  SemanticKitti & SalsaNext & 59.5 \cite{semantickittileaderboard} & 55.5  & ??? & ??? & 0.8 \\
+  nuScenes & Cylinder3D & 77.9 \cite{cylinder3dgithub} & 73.2 & ??? & ??? & 5.2 \\
+  nuScenes & COARSE3D & 58.7 \cite{coarse3dgithub} & ??? & ??? &  ??? & ??? \\
+  nuScenes & 2DPASS & 0.81 \cite{nuscenesleaderboard} & ??? & ??? &  ??? & ??? \\
+  nuScenes & SalsaNext & N/A & ??? &  ??? & ??? & ??? \\
+  RELLIS3D & Cylinder3D & N/A & ??? &  ??? & ??? & ??? \\
+  RELLIS3D & COARSE3D & N/A & ??? &  ??? & ??? & ??? \\
+  RELLIS3D & 2DPASS & N/A & ??? & ??? & ??? & ??? \\
+  RELLIS3D & SalsaNext & 40.2 \cite{rellis3dgithub} & 55.3 &  ??? & ??? & 0.2 \\
+ \hline
+\end{tabular}
+%\caption{Segmentation evaluation results table}
+\label{tab:results}
+\end{center}
+
+Benchmarking results for training and validation evaluation are given in Table \ref{tab:results}. Each column contains a metric defined in Section \ref{sec:metrics}. Omissions due to resource constraints are marked $???$; these are discussed in Section \ref{sec:resource-constraints}. For now we restrict discussion to the achieved (and almost achieved) benchmarks. It is important to note that we expect some discrepency between the "official" leaderboard mIOU results and what we achieve locally. For one thing, we are training with different hyperparameters due to resource constraints. Furthermore, the official results are validated against a reserved test set that we don't have access to.
+
+\begin{itemize}
+  \item Cylinder3D: We successfully trained Cylinder3D with the SemanticKitti and nuScenes datasets. In both cases our results are lower than the advertised mIOU (~4-8\%), but not terribly so. Training on Cylinder3D was fairly straightforward once certain deprecated depencency issues were resolved.
+  \item COARSE3D: We were able to kick off training runs with COARSE3D on SemanticKitti, but the results were so poor as to imply something went wrong in the training process. We were still getting mIOU results of ~0.5\% even after several days of training. Until these training issues are resolved we cannot vet the performance of COARSE3D against any dataset.
+  \item 2DPASS: We successfully trained 2DPASS against the SemanticKitti dataset. Our results were significantly lower than the advertised benchmark results - about 17 points lower. Although the reason for this discrepency is not immediately clear it seems unlikely to be simply a matter of hyperparameter tuning. Further investigation is warranted.
+  \item SalsaNext: We successfully trained SalsaNext against the Rellis3D offroad dataset. In this case we surprisingly got much higher results than the advertised mIOU (55.3 vs. 40.2). The Rellis3D dataset is much smaller than SemanticKitti and nuScenes, so it's possible their training and validation process is less hardened.
+\end{itemize}
+
+A common theme in the analysis of these results is the difficulty of interpreting disparate results due to too many variables. Are large differences in performance due to hardware differences? Or hyperparameter tuning? Or an implementation bug / quirk? Or a dependency version? Or ... ad nauseum. Our impression is that these benchmark results should be taken with a grain of salt - they are rough guidelines of expected performance on high-end hardware and will probably not translate directly to real-world performance.
+
+
 

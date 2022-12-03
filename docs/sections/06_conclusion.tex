@@ -1,0 +1,16 @@
+\section{Conclusion and Recommendations}
+\label{chap:conclusion}
+
+This project has barely scraped the surface of evaluation of 3D Semantic Segmentation algorithms. The numerous problems we encountered demonstrate that there is considerable research and engineering effort required in this field. As we strongly believe that 3D Semantic Segmentation will be an enabling method for important technologies like autonomous driving, it behooves the robotics community to improve our methodology for evaluating these algorithms.
+
+We believe the following changes would make reproduction and evaluation much simpler, thereby giving researches a systematic hardened way to truly evaluate their code.
+
+\begin{itemize}
+  \item Standardize Datasets: A common data format and / or set of dataset loading tools should be used for existing datasets. This will significantly simplify the process of evaluating existing algorithms on newly collected data.
+  \item Training Evaluation: Currently, leaderboards simply validate a pre-trained model instead of actually training. This makes some sense logistically, but it effectively weights performers with better hardware higher. To truly evaluate an approach on its merits we should standardize training parameters and configuration as much as possible. This means using the same hardware and the same common hyperparameters, like range image sizes / voxel sizes / number of epochs.
+  \item Metrics: Using a single metric like mIOU for evaluation doesn't account for some of the fundamental challenges of 3D Semantic Segmentation research aims to solve, like sparsity and training from limited labels. Leaderboards should include significantly more information pertaining not only to runtime performance but also the training procedure, like \% of labels used, time-to-train, runtime frequency, etc. These metrics are often more important than a few percentage points change in mIOU.
+\end{itemize}
+
+There is considerably opportunity here to contribute to an important field which will no doubt have a large impact on people's lives in the coming decades.
+
+\newpage

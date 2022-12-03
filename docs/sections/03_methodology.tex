@@ -6,13 +6,14 @@ As our goal is experimental reproducibility of results, it behooves us to carefu
 \subsection{Dependency Handling}
 \label{dependency-handling}
 
-We leverage containerization (via Docker) to create isolated build and training environments and freeze dependencies wherever possible. Each segmenter has its own associated Docker image with, e.g., a specific version of Torch installed. We include the source code of the primary implementation of each segmenter directly as a git submodule pointing to the latest relevant release. In cases where source code changes are necessary we capture these as git patch files for full transparency (rather than maintaining a fork).
+We leverage containerization (via \href{https://www.docker.com/}{Docker}) to create isolated build and training environments and freeze dependencies wherever possible. Each segmenter has its own associated Docker image with, e.g., a specific version of Torch installed. We include the source code of the primary implementation of each segmenter directly as a git submodule pointing to the latest relevant release. In cases where source code changes are necessary we capture these as git patch files for full transparency (rather than maintaining a fork).
 
 The general workflow is:
 \begin{enumerate}
-  \item Download datasets.
-  \item Build segmenter Docker image and enter an interactive container.
-  \item Train.
+  \item Download Datasets: This process varies from dataset to dataset, but generally involves making an account to get access. There is not yet a standard for dataset format, so each Segmenter will require a distinct parser for each dataset.
+  \item Build a bespoke Docker image for each segmenter and instantiate a Docker Container representing an isolated build environment.
+  \item Train via per-segmenter specific training instructions.
+  \item Evaluate via per-segmenter specific validation instructions.
 \end{enumerate}
 
 Unfortunately, most situations were not so clear cut. For example, Cylinder3D relies on an unavailable package spconv which must be installed from source. We document additional steps required in the \href{https://github.com/danielmohansahu/benchmarking-3d-semantic-segmentation/blob/main/README.md}{README}.
@@ -25,7 +26,7 @@ Some training and validation conditions are not fully controllable. The largest 
 One wonders how benchmarking reults would change if each submission was trained and evaluated on the same hardware, and how freezing certain hyperparameters (like number of epochs) would affect the standings.
 
 \subsection{Metrics}
-\label{metrics}
+\label{sec:metrics}
 
 \begin{equation}
   \label{eq:miou}
@@ -42,8 +43,8 @@ Dataset competitions usually rank submissions by either mean Intersection Over U
 In addition to these we consider the other following metrics to evaluate aspects of training relevant to a potential user of each algorithm. Each of these metric was collected using the same hardware (GeForce RTX 2080 SUPER Mobile / Max-Q, Intel Core i7-10750H @2.6GHz x 12, 32 GB RAM).
 
 \begin{enumerate}
-  \item Time to Evaluate: total amount of time it took to evaluate a trained model against a dataset. This captures (essentially) runtime performance.
+  \item Runtime Rate (hz): This is the max achieved throughput of the model at runtime, i.e. how many frames it can process per second.
   \item Runtime GPU usage - dictates the sort of hardware required to run a trained model.
-  \item Time to Train: total amount of time it took to train a model against a dataset.
+  \item Time to Train: total amount of time it took to train a model against a dataset. In some cases this is irrelevant, but given the scale of this metric (> 1 week was not uncommon) it is an important factor to consider for a real world deployment.
 \end{enumerate}
 
