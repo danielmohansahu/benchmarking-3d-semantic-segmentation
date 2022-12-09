@@ -1,19 +1,17 @@
 \section{Discussion}
 \label{chap:discussion}
 
-We have briefly discussed a number of complicating factors of 3D Semantic Segmentation in the preceding sections; here we give them our full attention. These complications can be broadly broken up into "resource constraints" and "fundamental constraints". Resource constraints refer to constraints which could be overcome in a perfect world. Fundamental constraints are more difficult - they prevent us from ever performing a true one-to-one comparison of different segmentation methods because, fundamentally, they can seek to perform different tasks.
+We touched on a number of complicating factors of 3D Semantic Segmentation in the preceding sections. These complications are broadly broken up into "resource constraints" and "fundamental constraints". Resource constraints refer to constraints which could be overcome with enough time and money. Fundamental constraints are more difficult - they prevent us from ever performing a true one-to-one comparison of different segmentation methods because, fundamentally, they can seek to perform different tasks.
 
 \subsection{Resource Constraints}
 \label{sec:resource-constraints}
 
-The most glaring deficiency in our results section is the number of permutations of dataset / segmenter that are missing. These gaps are due to resource constraints. We were unable to reproduce most due to a combination of lack of engineering time (to work through the technical challenges of reproducing training environments) and hardware limitations (some algorithms took a full week to train on our hardware).
-
-Although it's a useful exercise to decouple the analysis of these constraints from their fundamental counterparts they should not be discounted.
+The most glaring deficiency in our results section is the number of permutations of dataset / segmenter that are missing. These gaps are due to resource constraints. We were unable to reproduce most due to a combination of lack of engineering time and hardware limitations (some algorithms took a full week to train on our hardware).
 
 \subsection{Fundamental Constraints}
 \label{sec:fundamental-constraints}
 
-The naive approach suggested at the outset of this project was to select M datasets and the top N segmentation algorithms and train each permutation on the same hardware. From that we hoped to get a sense for which algorithms are truly the "best" across a range of datasets. While we still believe this to be a worthy exercise, it would not be as beneficial as previously thought.
+The naive approach suggested at the outset of this project was to select M datasets and the top N segmentation algorithms and train each permutation on the same hardware. From that we hoped to get a sense for which algorithms are truly the "best" across a range of datasets. This approach was found to be infeasible.
 
-The unique challenges of 3D Semantic Segmentation (memory requirements, annotation limitations, training time, sparsity, etc.) have led to a proliferation of different approaches to tackle these challenges. To truly compare our different methods we would need to add several more variable parameters, such as number of labels (to test COARSE3D's ability to train from limited labels) and whether or not 3D data is supplemented by other sensors (as in 2DPASS).
+The unique challenges of 3D Semantic Segmentation (memory requirements, annotation limitations, sparsity, etc.) have led to a proliferation of different approaches to tackle these challenges. Comparing 2DPASS to COARSE3D is not a one-to-one comprison because the former leverages camera imagery in the training process and the latter deliberately decimates the training set. Using a single accuracy-based metric for comparison is misleading.
 
